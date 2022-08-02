@@ -3,4 +3,4 @@ even_line = common_string[::2]
 upper_line = common_string[-1::-1].upper()
 print(even_line)
 print(upper_line)
-# My first project on the PyCharm! - the text I enter^)
+# My first project on the PyCharm! - the text I enter:)

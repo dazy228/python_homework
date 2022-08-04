@@ -1,30 +1,27 @@
 a1 = "123"
 a2 = "123"
 a3 = "123"
-print(a1, a2, a3)
-print(a1 == a2 == a3)
-print(id(a1))
-print(id(a2))
-print(id(a3))
-
+print("===============================================================")
+print("Variable: ", a1, a2, a3)
+print("Compare first: ", a1 == a2 == a3)
+print("ID first time: ", id(a1), id(a2), id(a3))
+print("---------------------------------------------------------------")
 a1 = int
 a3 = float
-print(a1 == a2 == a3)
-print(id(a1))
-print(id(a2))
-print(id(a3))
-print("------------------------------------------------------")
+print("Compare second: ", a1 == a2 == a3)
+print("ID second time: ", id(a1), id(a2), id(a3))
+print("===============================================================")
 b1 = 321
 b2 = "321"
-print(b1, b2)
-print(b1 == b2)
-print(id(b1))
-print(id(b2))
+print("Variable: ", b1, b2)
+print("Compare first: ", b1 == b2)
+print("ID first time: ", id(b1), id(b2))
+print("---------------------------------------------------------------")
 b1 = bool
 b2 = bool
 print(b1, b2)
-print(b1 == b2)
-print(id(b1))
-print(id(b2))
+print("Compare second: ", b1 == b2)
+print("ID second time: ", id(b1), id(b2))
+print("===============================================================")
 
 

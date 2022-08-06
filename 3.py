@@ -1,4 +1,4 @@
-text = str(input("Введите предложени из слов: "))
+text = str(input("Введите предложени из слов: "))        # В данном случае я ввожу слова: good night
 splitted_text = text.split()
 # print(splitted_text)
 first_word = splitted_text[0].title()

@@ -18,8 +18,6 @@ while i <= value:
     if i % 3 == 0:
         continue
     item = i**3
-    print(item)
     i += 1
-    print(result)
 print(f"Ответ: {result}")
 

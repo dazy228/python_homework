@@ -7,9 +7,9 @@ i = 1
 item = 1
 print("-----method for-----")
 for item in range(1, value+1):
-    i = item**3
     if item % 3 == 0:
         continue
+    i = item ** 3
     result += i
 print(f"Ответ: {result}")
 

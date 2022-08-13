@@ -16,7 +16,7 @@ def you_win():
 
 
 def you_lose():
-    if number != random_num:
+    if number_of_attempts >= 6:
         print("-" * 50)
         print(f"А вот и не угадал:( Я загадал число: {random_num}(((")
         print("-" * 50)

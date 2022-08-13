@@ -1,6 +1,11 @@
 import random
 
 
+def welcome_to_my_game():
+    print(f"Отлично, {name}, я загадал число между 1 и 30. Сможешь угадать?:)")
+    print("У тебя есть 6 попыток, погнали!")
+
+
 def condition_set():
     if number < random_num:
         print("Твоё число меньше того, что я загадал:)")
@@ -20,11 +25,6 @@ def you_lose():
         print("-" * 50)
         print(f"А вот и не угадал:( Я загадал число: {random_num}(((")
         print("-" * 50)
-
-
-def welcome_to_my_game():
-    print(f"Отлично, {name}, я загадал число между 1 и 30. Сможешь угадать?:)")
-    print("У тебя есть 6 попыток, погнали!")
 
 
 name = input("Привет! Как тебя зовут? ").title()

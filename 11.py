@@ -20,4 +20,8 @@ input_data_lower = []
 func_input_data_lower()
 
 result = list(filter(filter_list(), words))
+print("Before filter")
+print(input_data)
+print("-" * 62)
+print("After filter")
 print(result)

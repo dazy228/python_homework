@@ -34,8 +34,7 @@ def digit_check(number):
 while True:
     input_str = input("Введите число или сделайте выход ('выход', 'exit', 'quit', 'e' или 'q'): ")
     if input_str.lower() in ['выход', 'exit', 'quit', 'e', 'q']:
-        print(f''
-              f'Вы вышли!(')
+        print(f'Вы вышли!(')
         break
     else:
         number_2 = replace_number(input_str)    # Делаю из строки число убирая ".", ",", "-". если это можно сделать

@@ -10,14 +10,20 @@ def my_decorator(func):
         func()
         before = datetime.now()
         print(f'-' * 50)
-        print(f'function running time: {before - after}')
+        print(f'Function running time: {before - after}')
 
     return the_wrapper
 
 
 @my_decorator
-def hello_world():
+def first_func():
     print('Whether he was joking or not... is unknown.')
 
 
-print(hello_world())
+@my_decorator
+def second_func():
+    print('Look here, if this is some kind of macabre joke...')
+
+
+print(first_func())
+print(second_func())

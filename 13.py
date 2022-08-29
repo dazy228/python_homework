@@ -1,7 +1,5 @@
 def replace_number(number):
-    number = number.replace(',', '')
-    number = number.replace('.', '')
-    number = number.replace('-', '')
+    number = number.replace(',', '').replace('.', '').replace('-', '')
     try:
         number = int(number)
         return number

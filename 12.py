@@ -4,27 +4,20 @@ import time
 
 def my_decorator(func):
     def the_wrapper():
-        time.sleep(1.5)
-        print(f'time before - {datetime.now()}')
+        print(f'-' * 50)
+        after = datetime.now()
         time.sleep(1.5)
         func()
-
-    return the_wrapper
-
-
-def my_decorator_2(func):
-    def the_wrapper():
-        func()
-        time.sleep(1.5)
-        print(f'time after - {datetime.now()}')
+        before = datetime.now()
+        print(f'-' * 50)
+        print(f'function running time: {before - after}')
 
     return the_wrapper
 
 
 @my_decorator
-@my_decorator_2
 def hello_world():
-    print('DATETIME')
+    print('Whether he was joking or not... is unknown.')
 
 
-hello_world()
+print(hello_world())

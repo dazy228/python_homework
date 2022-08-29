@@ -6,7 +6,6 @@ def my_decorator(func):
     def the_wrapper():
         print(f'-' * 50)
         after = datetime.now()
-        time.sleep(1.5)
         func()
         before = datetime.now()
         print(f'-' * 50)
@@ -17,11 +16,13 @@ def my_decorator(func):
 
 @my_decorator
 def first_func():
+    time.sleep(1.5)
     print('Whether he was joking or not... is unknown.')
 
 
 @my_decorator
 def second_func():
+    time.sleep(1.5)
     print('Look here, if this is some kind of macabre joke...')
 
 

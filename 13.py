@@ -3,7 +3,7 @@ def replace_number(number):
     try:
         number = int(number)
         return number
-    except:     # подскажите пожалуйста почему у меня подчёркивает эту строку жёлтым, хотя она работает замечательно!
+    except ValueError:
         number = str(number)
         return number
 

@@ -1,11 +1,11 @@
 class Auto(object):
-    # brand = str
+    brand = str
     age = 0
-    # color = str
-    # mark = str
-    # weight = float
+    color = str
+    mark = str
+    weight = float
 
-    def __int__(self, brand, age, mark, color='black', weight=1.73):
+    def __init__(self, brand, age, mark, color='black', weight=1.73):
         self.brand = brand
         self.age = age
         self.mark = mark
@@ -24,7 +24,7 @@ class Auto(object):
         print('stop')
 
 
-auto = Auto()
+auto = Auto('BMW', 12, 'BMW')
 auto.stop()
 auto.move()
 auto.birthday(0)

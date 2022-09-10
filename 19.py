@@ -1,9 +1,9 @@
 class Auto(object):
-    brand = str
+    brand = ''
     age = 0
-    color = str
-    mark = str
-    weight = float
+    color = ''
+    mark = ''
+    weight = 0
 
     def __init__(self, brand, age, mark, color='black', weight=1.73):
         self.brand = brand

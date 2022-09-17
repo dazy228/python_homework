@@ -2,24 +2,25 @@
 class String(str):
 
     def __init__(self, later):
-        self.later = later
+        self.later = str(later)
 
     def __str__(self):
         return self.later
 
     def __add__(self, other):
-        sum = str(self.later) + str(other.later)
-        return f'Your sum later: {sum}'
+
+        return String(str(self) + str(other))
 
     def __sub__(self, other):
-        return f"Your sub later: {self.replace(other.later, '')}"
+        if str(other) in str(self):
+            return String(str(self).replace(str(other), ''))
+        return String(self)
 
 
-later_1 = input('later one: ')
-later_2 = input('later two: ')
-later_3 = String(later_1)
-later_4 = String(later_2)
-later_add = later_3 + later_4
-later_sub = later_3 - later_4
-print(later_add)
-print(later_sub)
+later_1 = String('later')
+later_2 = String(' one')
+
+print(later_1 + later_2)
+print(String('later one') - 'one')
+print(String('155755') - 7)
+print(String('155755') - '155')

@@ -8,7 +8,6 @@ class String(str):
         return self.later
 
     def __add__(self, other):
-
         return String(str(self) + str(other))
 
     def __sub__(self, other):

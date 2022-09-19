@@ -12,7 +12,6 @@ class Person(object):
         self.patronymic = patronymic
         self.birthday = birthday
         self.data_death = data_death
-        self.today = datetime.date.today()
 
     def __str__(self):
         return f'Имя: {self.name}, Фамилия: {self.surname}, Отчество: {self.patronymic}, Возраст: {"  "}, Дата рождения: {self.birthday}, Дата смерти: {self.data_death}'.title()

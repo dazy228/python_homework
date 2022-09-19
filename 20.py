@@ -5,17 +5,22 @@ from home_work19 import Auto
 class Truck(Auto):
     max_load = 'not specified'
 
+    def __init__(self, brand, age, mark, max_load,):
+        super().__init__(self, brand, age, mark)
+        self.max_load = max_load
+
     def move(self):
         print('attention')
         super().move()
 
-    def load(self):
+    @staticmethod
+    def load():
         time.sleep(1)
         print('load')
         time.sleep(1)
 
 
-truck = Truck('BMW', 12, 'BMW')
+truck = Truck('BMW', 12, 'BMW', 1000)
 truck.move()
 truck.load()
 

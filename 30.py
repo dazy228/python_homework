@@ -12,7 +12,7 @@ class String(str):
 
     def __sub__(self, other):
         if str(other) in str(self):
-            return String(str(self).replace(str(other), ''))
+            return String(str(self).replace(str(other), '', 1))
         return String(self)
 
 
@@ -23,4 +23,7 @@ print(later_1 + later_2)
 print(String('later one') - 'one')
 print(String('155755') - 7)
 print(String('155755') - '155')
-print(type(String('155755') - '155'))
+print("-" * 10)
+print((String('pineapple apple pine') - 'apple'))
+print((String(55678345672) - 7))
+

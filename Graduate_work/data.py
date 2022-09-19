@@ -8,10 +8,6 @@ while True:
     except ValueError:
         print('Неверный формат даты')
 
-print(birthday)
-print(type(birthday))
-print('-' * 30)
-
 
 def valid_date(date):
     valid_data_list = []
@@ -24,6 +20,10 @@ def valid_date(date):
     delta = age.split(',')
     return delta[0]
 
+
+print(birthday)
+print(type(birthday))
+print('-' * 30)
 
 print(datetime.date.today())
 print(type(datetime.date.today()))

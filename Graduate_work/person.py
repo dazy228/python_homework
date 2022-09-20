@@ -37,21 +37,18 @@ class Person(object):
         return word
         # СтатикМетод для проверки ввода на NoneType и замены его на '__' для корректной работы метода __str__
 
-    def get_age(self):
-        day_today = datetime.date.today()
-        if self.data_death is not None:
-            age = str((self.valid_date(self.data_death) - self.valid_date(self.birthday)) / 365)
+    def calculate_age(self):
+        if self.data_death is None:
+            today = datetime.date.today()
         else:
-            age = str((day_today - self.valid_date(self.birthday)) / 365)
-        delta = age.split(',')
-        year = delta[0].split(' ')
-        return year[0]
-        # Метод для вычисления возраста человека по дате рождения и дате смерти (если есть)
+            today = datetime.datetime.strptime(self.data_death.replace('.', '/', 2), '%d/%m/%Y').date()
+        born = datetime.datetime.strptime(self.birthday.replace('.', '/', 2), '%d/%m/%Y').date()
+        return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
     def __str__(self):
         return f'| Имя: {self.name:{self.len_name}} | Фамилия: {self.valid_none(self.surname):{self.len_surname}} | ' \
                f'Отчество: {self.valid_none(self.patronymic):{self.len_patronymic}} | '\
-               f'Пол:{self.sex} | Возраст: {self.get_age()} | Родил{"cя: "  if self.sex in "М" else "ась:"} {self.birthday} | Умер{":  " if self.sex in "М" else "ла:"} {self.valid_none(self.data_death):10}|'
+               f'Пол:{self.sex} | Возраст: {self.calculate_age()} | Родил{"cя: "  if self.sex in "М" else "ась:"} {self.birthday} | Умер{":  " if self.sex in "М" else "ла:"} {self.valid_none(self.data_death):10}|'
         # # Делаем изумительно красивы и продуманный вывод;) Все в одну строку, но читаемо и понятно
 
 
@@ -86,6 +83,7 @@ class PersonList(object):
         wb.save(file_name)
         wb.close()
         self.persons = []
+        print('-' * 30)
         print("Файл сохранился")
         # Метод для сохранения всего нашего файла в формате xlsx с кастомным или уже существующим именем
 
@@ -101,6 +99,7 @@ class PersonList(object):
         self.max_len_patronymic()
 
         self.file_name = file_name
+        print('-' * 30)
         print('Загружена база данных')
         # Метод для загрузки файла с уже существующим именем
 
@@ -145,13 +144,20 @@ class PersonList(object):
         return None
         # Метод для поиска людей по фамилии для того же удаления
 
-    def delete_person(self, surname):
-        person = self.find_person(surname)
-        if person is not None:
-            self.persons.remove(person)
-            return True
-        return False
-        # Метод для удаления человека из списка по фамилии
+    # метод для удаления человека из списка по имени, фамилии и дате рождения
+    def delete_person(self, name, surname, birthday):
+        for person in self.persons:
+            if person.name == name and person.surname == surname and person.birthday == birthday:
+                self.persons.remove(person)
+                return True
+
+    # def delete_person(self, surname):
+    #     person = self.find_person(surname)
+    #     if person is not None:
+    #         self.persons.remove(person)
+    #         return True
+    #     return False
+    #     # Метод для удаления человека из списка по фамилии
 
 
 def get_valid_date(input_date: str):

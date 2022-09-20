@@ -15,7 +15,6 @@ def main():
         # сообщение об ошибке и возвращаемся в меню
         if choice == '1':
             file_name = input('Укажите имя файла: ')
-
             file_name = file_name + ('.xlsx' if file_name.find('xlsx') == -1 else "")
             if os.path.exists(file_name):
                 person_list.load(file_name)
@@ -73,26 +72,29 @@ def main():
                     print(i)
             else:
                 print('Человек не найден')
-        # Удаляем по фамилии ибо фамилии повторяются намного реже чем имена. дабы не
-        # удалять всех с одинаковыми именами
         elif choice == '4':
-            if person_list.delete_person(input('Введите фамилию: ')):
+            name = input('Введите имя для удаления: ')
+            surname = input('Введите фамилию для удаления: ')
+            birthday = input('Введите дату рождения для удаления: ')
+            if person_list.delete_person(name, surname, birthday):
                 print('Человек удален')
             else:
                 print('Человек не найден')
-        # Если пользователь сохраняет в новый файл, просим написать название файла. Если пользователь сохраняет в
-        # старый файл то проверяем есть ли у нас имя файла в корне и если есть то сохраняем в него, а если нет, то
-        # выводим что такого файла нету
         elif choice == '5':
-            if input('Сохранить в новый файл? (Да/Нет): ').upper() in "ДА":
-                file_name = input('Введите имя файла без расширения:')
-                person_list.save(file_name)
-            elif person_list.file_name is not None:
-                person_list.save(person_list.file_name)
-            else:
-                print('Файл не выбран')
+            while True:
+                input_save = input('Сохранить в новый файл? (Да/Нет): ').upper()
+                if input_save == "ДА":
+                    file_name = input('Укажите имя файла: ')
+                    file_name = file_name + ('.xlsx' if file_name.find('xlsx') == -1 else "")
+                    person_list.save(file_name)
+                    break
+                elif input_save == "НЕТ":
+                    person_list.save(person_list.file_name)
+                    break
+                else:
+                    print('Нету такого варианта')
         elif choice == '6':
-            person_list.get_info() if person_list.get_info() is not None else print("Локальная база пуста")
+            person_list.get_info() if person_list.persons != [] else print('-'*30, '\nЛокальная база пуста')
         elif choice == '7':
             break
         else:

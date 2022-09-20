@@ -3,6 +3,10 @@ import datetime
 
 
 class Person(object):
+    len_name = 0
+    len_surname = 0
+    len_patronymic = 0
+
     def __init__(self, name, surname, patronymic, sex, birthday, data_death):
         self.name = name
         self.surname = surname
@@ -13,10 +17,6 @@ class Person(object):
         # Метод . просто метод%) ВОЛШЕБНЫЙ
 
     def get_full_name(self):
-        """
-        Вернет полное имя человека
-        :return:
-        """
         return f'{self.surname} {self.name} {self.patronymic}'.lower()
         # Метод для получения полного имени по которому потом будет производиться поиск человека в базе данных
 
@@ -49,13 +49,10 @@ class Person(object):
         # Метод для вычисления возраста человека по дате рождения и дате смерти (если есть)
 
     def __str__(self):
-        return '| Имя: {:<10} | Фамилия: {:<10} | Отчество: {:<10} | '\
-               'Пол:{:^2} | Возраст: {:^3} | ' \
-               'Родил{} {:^10} | Умер{} {:^10}|'.format(self.name, self.valid_none(self.surname),
-                                                       self.valid_none(self.patronymic), self.sex,
-                                                       self.get_age(), 'cя: ' if self.sex in 'М' else 'ась:',
-                                                       self.birthday, ':  ' if self.sex in 'М' else 'ла:', self.valid_none(self.data_death))
-        # Делаем изумительно красивы и продуманный вывод;) Все в одну строку, но читаемо и понятно
+        return f'| Имя: {self.name:{self.len_name}} | Фамилия: {self.valid_none(self.surname):{self.len_surname}} | ' \
+               f'Отчество: {self.valid_none(self.patronymic):{self.len_patronymic}} | '\
+               f'Пол:{self.sex} | Возраст: {self.get_age()} | Родил{"cя: "  if self.sex in "М" else "ась:"} {self.birthday} | Умер{":  " if self.sex in "М" else "ла:"} {self.valid_none(self.data_death):10}|'
+        # # Делаем изумительно красивы и продуманный вывод;) Все в одну строку, но читаемо и понятно
 
 
 class PersonList(object):
@@ -88,36 +85,45 @@ class PersonList(object):
                           person.data_death])
         wb.save(file_name)
         wb.close()
+        self.persons = []
         print("Файл сохранился")
         # Метод для сохранения всего нашего файла в формате xlsx с кастомным или уже существующим именем
 
-    @staticmethod
-    def load_file(file_name):
-        if file_name.find('.xlsx') == -1:
-            return False
-        elif file_name.find('.xlsx') != -1:
-            return True
-
     def load(self, file_name):
-        if file_name.load_file(file_name) is False:
-            wb = openpyxl.load_workbook(f'{file_name}.xlsx')
-            sheet = wb['Люди']
-            for row in sheet.iter_rows(min_row=2):
-                person = Person(row[0].value, row[1].value, row[2].value, row[3].value, row[4].value, row[5].value)
-                self.persons.append(person)
-            wb.close()
-            self.file_name = file_name
-            print('Загружена база данных')
-        elif file_name.load_file(file_name) is True:
-            wb = openpyxl.load_workbook(file_name)
-            sheet = wb['Люди']
-            for row in sheet.iter_rows(min_row=2):
-                person = Person(row[0].value, row[1].value, row[2].value, row[3].value, row[4].value, row[5].value)
-                self.persons.append(person)
-            wb.close()
-            self.file_name = file_name
-            print('Загружена база данных')
+        wb = openpyxl.load_workbook(file_name)
+        sheet = wb['Люди']
+        for row in sheet.iter_rows(min_row=2):
+            person = Person(row[0].value, row[1].value, row[2].value, row[3].value, row[4].value, row[5].value)
+            self.persons.append(person)
+        wb.close()
+        self.max_len_name()
+        self.max_len_surname()
+        self.max_len_patronymic()
+
+        self.file_name = file_name
+        print('Загружена база данных')
         # Метод для загрузки файла с уже существующим именем
+
+    def max_len_name(self):
+        max_len = 0
+        for item in self.persons:
+            if len(item.name) > max_len:
+                max_len = len(item.name)
+        Person.len_name = max_len
+
+    def max_len_surname(self):
+        max_len = 0
+        for item in self.persons:
+            if len(item.surname if item.surname is not None else '') > max_len:
+                max_len = len(item.surname)
+        Person.len_surname = max_len
+
+    def max_len_patronymic(self):
+        max_len = 0
+        for item in self.persons:
+            if len(item.patronymic if item.patronymic is not None else '') > max_len:
+                max_len = len(item.patronymic)
+        Person.len_patronymic = max_len
 
     def get_info(self):
         for person in self.persons:
@@ -149,10 +155,5 @@ class PersonList(object):
 
 
 def get_valid_date(input_date: str):
-    """
-    Возвращает дату в валидном формате для datetime
-    :param input_date:
-    :return:
-    """
     return input_date.replace(" ", ".", 2).replace("/", ".", 2).replace("-", ".", 2)
     # Функция для валидации даты под метод вычисления возраста человека

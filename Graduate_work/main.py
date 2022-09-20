@@ -15,13 +15,10 @@ def main():
         # сообщение об ошибке и возвращаемся в меню
         if choice == '1':
             file_name = input('Укажите имя файла: ')
-#   ---------------------------------------------------------------
-            if file_name.find('xlsx') == -1:
-                if os.path.exists(f'{file_name}.xlsx'):
-                    person_list.load(file_name)
-            elif file_name.find('xlsx') != -1:
-                if os.path.exists(file_name):
-                    person_list.load(file_name)
+
+            file_name = file_name + ('.xlsx' if file_name.find('xlsx') == -1 else "")
+            if os.path.exists(file_name):
+                person_list.load(file_name)
             else:
                 print('Такого файла нет в корне')
         elif choice == '2':
@@ -95,7 +92,7 @@ def main():
             else:
                 print('Файл не выбран')
         elif choice == '6':
-            person_list.get_info()
+            person_list.get_info() if person_list.get_info() is not None else print("Локальная база пуста")
         elif choice == '7':
             break
         else:
@@ -109,4 +106,3 @@ if __name__ == '__main__':
 # ------------------------------------------------------------------------------#
 # Программа была написана такими студентами: ('Даниил Чупак', 'Андрей Верыч') ^)
 # ------------------------------------------------------------------------------#
-

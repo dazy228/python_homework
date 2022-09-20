@@ -51,10 +51,10 @@ class Person(object):
     def __str__(self):
         return '| Имя: {:<10} | Фамилия: {:<10} | Отчество: {:<10} | '\
                'Пол:{:^2} | Возраст: {:^3} | ' \
-               'Родил{} {:^10} | Умер: {:^10}|'.format(self.name, self.valid_none(self.surname),
+               'Родил{} {:^10} | Умер{} {:^10}|'.format(self.name, self.valid_none(self.surname),
                                                        self.valid_none(self.patronymic), self.sex,
                                                        self.get_age(), 'cя: ' if self.sex in 'М' else 'ась:',
-                                                       self.birthday, self.valid_none(self.data_death))
+                                                       self.birthday, ':  ' if self.sex in 'М' else 'ла:', self.valid_none(self.data_death))
         # Делаем изумительно красивы и продуманный вывод;) Все в одну строку, но читаемо и понятно
 
 
@@ -86,20 +86,37 @@ class PersonList(object):
         for person in self.persons:
             sheet.append([person.name, person.surname, person.patronymic, person.sex, person.birthday,
                           person.data_death])
-        wb.save(f'{file_name}.xlsx')
+        wb.save(file_name)
         wb.close()
         print("Файл сохранился")
         # Метод для сохранения всего нашего файла в формате xlsx с кастомным или уже существующим именем
 
+    @staticmethod
+    def load_file(file_name):
+        if file_name.find('.xlsx') == -1:
+            return False
+        elif file_name.find('.xlsx') != -1:
+            return True
+
     def load(self, file_name):
-        wb = openpyxl.load_workbook(f'{file_name}.xlsx')
-        sheet = wb['Люди']
-        for row in sheet.iter_rows(min_row=2):
-            person = Person(row[0].value, row[1].value, row[2].value, row[3].value, row[4].value, row[5].value)
-            self.persons.append(person)
-        wb.close()
-        self.file_name = file_name
-        print('Загружена база данных')
+        if file_name.load_file(file_name) is False:
+            wb = openpyxl.load_workbook(f'{file_name}.xlsx')
+            sheet = wb['Люди']
+            for row in sheet.iter_rows(min_row=2):
+                person = Person(row[0].value, row[1].value, row[2].value, row[3].value, row[4].value, row[5].value)
+                self.persons.append(person)
+            wb.close()
+            self.file_name = file_name
+            print('Загружена база данных')
+        elif file_name.load_file(file_name) is True:
+            wb = openpyxl.load_workbook(file_name)
+            sheet = wb['Люди']
+            for row in sheet.iter_rows(min_row=2):
+                person = Person(row[0].value, row[1].value, row[2].value, row[3].value, row[4].value, row[5].value)
+                self.persons.append(person)
+            wb.close()
+            self.file_name = file_name
+            print('Загружена база данных')
         # Метод для загрузки файла с уже существующим именем
 
     def get_info(self):

@@ -7,6 +7,7 @@ class Person(object):
     len_surname = 0
     len_patronymic = 0
 
+    # Метод . просто метод%) ВОЛШЕБНЫЙ
     def __init__(self, name, surname, patronymic, sex, birthday, data_death):
         self.name = name
         self.surname = surname
@@ -14,12 +15,12 @@ class Person(object):
         self.sex = sex
         self.birthday = birthday
         self.data_death = data_death
-        # Метод . просто метод%) ВОЛШЕБНЫЙ
 
+    # Метод для получения полного имени по которому потом будет производиться поиск человека в базе данных
     def get_full_name(self):
         return f'{self.surname} {self.name} {self.patronymic}'.lower()
-        # Метод для получения полного имени по которому потом будет производиться поиск человека в базе данных
 
+    # СтатикМетод для перевода даты в формат datetime для дальнейшего вычисления возраста человека
     @staticmethod
     def valid_date(data):
         valid_data_list = []
@@ -28,14 +29,13 @@ class Person(object):
             valid_data_list.append(int(i))
         date_time = datetime.date(valid_data_list[2], valid_data_list[1], valid_data_list[0])
         return date_time
-        # СтатикМетод для перевода даты в формат datetime для дальнейшего вычисления возраста человека
 
+    # СтатикМетод для проверки ввода на NoneType и замены его на '__' для корректной работы метода __str__
     @staticmethod
     def valid_none(word):
         if word is None:
             return "__"
         return word
-        # СтатикМетод для проверки ввода на NoneType и замены его на '__' для корректной работы метода __str__
 
     def calculate_age(self):
         if self.data_death is None:
@@ -45,33 +45,33 @@ class Person(object):
         born = datetime.datetime.strptime(self.birthday.replace('.', '/', 2), '%d/%m/%Y').date()
         return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
+    # Делаем изумительно красивы и продуманный вывод;) Все в одну строку, но читаемо и понятно
     def __str__(self):
         return f'| Имя: {self.name:{self.len_name}} | Фамилия: {self.valid_none(self.surname):{self.len_surname}} | ' \
                f'Отчество: {self.valid_none(self.patronymic):{self.len_patronymic}} | '\
                f'Пол:{self.sex} | Возраст: {self.calculate_age()} | Родил{"cя: "  if self.sex in "М" else "ась:"} {self.birthday} | Умер{":  " if self.sex in "М" else "ла:"} {self.valid_none(self.data_death):10}|'
-        # # Делаем изумительно красивы и продуманный вывод;) Все в одну строку, но читаемо и понятно
 
 
 class PersonList(object):
     file_name = None
-    # Присваиваем имени файла по дефолту None дабы избежать ошибки при сохранении файла
 
     def __init__(self):
         self.persons = []
-        # тоже, просто Метод инициализации класса
 
+    # Метод для вывода списка людей в строку
     def __str__(self):
         return f'Список людей: {self.persons}'
-        # Метод для вывода списка людей в строку
 
+    # Метод для вывода списка людей в строку
     def __repr__(self):
         return f'Список людей: {self.persons}'
         # Метод для вывода списка людей в строку
 
+    # Метод для добавления человека в список
     def add_person(self, person):
         self.persons.append(person)
-        # Метод для добавления человека в список
 
+    # Метод для сохранения всего нашего файла в формате xlsx с кастомным или уже существующим именем
     def save(self, file_name):
         wb = openpyxl.Workbook()
         sheet = wb.active
@@ -85,8 +85,8 @@ class PersonList(object):
         self.persons = []
         print('-' * 30)
         print("Файл сохранился")
-        # Метод для сохранения всего нашего файла в формате xlsx с кастомным или уже существующим именем
 
+    # Метод для загрузки файла с уже существующим именем
     def load(self, file_name):
         wb = openpyxl.load_workbook(file_name)
         sheet = wb['Люди']
@@ -101,7 +101,6 @@ class PersonList(object):
         self.file_name = file_name
         print('-' * 30)
         print('Загружена база данных')
-        # Метод для загрузки файла с уже существующим именем
 
     def max_len_name(self):
         max_len = 0
@@ -124,25 +123,24 @@ class PersonList(object):
                 max_len = len(item.patronymic)
         Person.len_patronymic = max_len
 
+    # Метод для вывода информации о людях в консоль, напоменаем.. 'изумительно красиво и продуманно'
     def get_info(self):
         for person in self.persons:
             print(person)
-        # Метод для вывода информации о людях в консоль, напоменаем.. 'изумительно красиво и продуманно'
 
+    # Метод для поиска людей по полному имени или его части
     def find_persons(self, search_name):
         persons = []
         for person in self.persons:
             if search_name in person.get_full_name():
                 persons.append(person)
         return persons
-        # Метод для поиска людей по полному имени или его части
 
     def find_person(self, surname):
         for person in self.persons:
             if person.surname == surname:
                 return person
         return None
-        # Метод для поиска людей по фамилии для того же удаления
 
     # метод для удаления человека из списка по имени, фамилии и дате рождения
     def delete_person(self, name, surname, birthday):
@@ -150,14 +148,6 @@ class PersonList(object):
             if person.name == name and person.surname == surname and person.birthday == birthday:
                 self.persons.remove(person)
                 return True
-
-    # def delete_person(self, surname):
-    #     person = self.find_person(surname)
-    #     if person is not None:
-    #         self.persons.remove(person)
-    #         return True
-    #     return False
-    #     # Метод для удаления человека из списка по фамилии
 
 
 def get_valid_date(input_date: str):

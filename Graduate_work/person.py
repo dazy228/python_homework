@@ -47,7 +47,8 @@ class Person(object):
 
     # Делаем изумительно красивы и продуманный вывод;) Все в одну строку, но читаемо и понятно
     def __str__(self):
-        return f'| Имя: {self.name:{self.len_name}} | Фамилия: {self.valid_none(self.surname):{self.len_surname}} | ' \
+        return f'| Имя: {self.name:{self.len_name}} | ' \
+               f'Фамилия: {self.valid_none(self.surname):{self.len_surname}} | ' \
                f'Отчество: {self.valid_none(self.patronymic):{self.len_patronymic}} | '\
                f'Пол:{self.sex} | Возраст: {self.calculate_age()} | ' \
                f'Родил{"cя: "  if self.sex in "М" else "ась:"} {self.birthday} | ' \

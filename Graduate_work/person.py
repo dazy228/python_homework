@@ -69,7 +69,6 @@ class PersonList(object):
     # Метод для вывода списка людей в строку
     def __repr__(self):
         return f'Список людей: {self.persons}'
-        # Метод для вывода списка людей в строку
 
     # Метод для добавления человека в список
     def add_person(self, person):

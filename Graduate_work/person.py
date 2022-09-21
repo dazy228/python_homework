@@ -49,7 +49,9 @@ class Person(object):
     def __str__(self):
         return f'| Имя: {self.name:{self.len_name}} | Фамилия: {self.valid_none(self.surname):{self.len_surname}} | ' \
                f'Отчество: {self.valid_none(self.patronymic):{self.len_patronymic}} | '\
-               f'Пол:{self.sex} | Возраст: {self.calculate_age()} | Родил{"cя: "  if self.sex in "М" else "ась:"} {self.birthday} | Умер{":  " if self.sex in "М" else "ла:"} {self.valid_none(self.data_death):10}|'
+               f'Пол:{self.sex} | Возраст: {self.calculate_age()} | ' \
+               f'Родил{"cя: "  if self.sex in "М" else "ась:"} {self.birthday} | ' \
+               f'Умер{":  " if self.sex in "М" else "ла:"} {self.valid_none(self.data_death):10} |'
 
 
 class PersonList(object):

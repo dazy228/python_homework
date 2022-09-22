@@ -1,3 +1,7 @@
+# ------------------------------------------------------------------------------#
+# Программа была написана такими студентами: ('Даниил Чупак', 'Андрей Верыч') ^)
+# ------------------------------------------------------------------------------#
+
 from person import *
 import os
 
@@ -21,12 +25,14 @@ def main():
             else:
                 print('Такого файла нет в корне')
         elif choice == '2':
-
             # Добавляем человека, просим ввести данные
             while True:
                 name = input('Введите имя: ').title()
                 if name == '':
                     print('Имя не может быть пустым')
+                elif not get_valid_str(name):
+                    print('Имя должно содержать только буквы')
+                    continue
                 else:
                     break
             # Сделали проверку фамилии ради того чтобы можно было корректно удалять людей
@@ -34,9 +40,18 @@ def main():
                 surname = input('Введите фамилию: ').title()
                 if surname == '':
                     print('Фамилия не может быть пустая')
+                elif not get_valid_str(surname):
+                    print('Фамилия должна содержать только буквы')
+                    continue
                 else:
                     break
-            patronymic = input('Введите отчество: ').title()
+            while True:
+                patronymic = input('Введите отчество: ').title()
+                if not get_valid_str(patronymic):
+                    print('Отчество должно содержать только буквы')
+                    continue
+                else:
+                    break
             while True:
                 sex = input('Введите пол (М/Ж): ').upper()
                 if sex in ('М', 'Ж'):
@@ -84,8 +99,8 @@ def main():
             while True:
                 input_save = input('Сохранить в новый файл? (Да/Нет): ').upper()
                 if input_save == "ДА":
-                    file_name = input('Укажите имя файла: ')
-                    file_name = file_name + ('.xlsx' if file_name.find('xlsx') == -1 else "")
+                    file_name = input('Укажите имя файла (файл будет сохранен в формате xlsx: ')
+                    file_name = f"{file_name.split('.')[0]}.xlsx"
                     person_list.save(file_name)
                     break
                 elif input_save == "НЕТ":
@@ -105,6 +120,3 @@ if __name__ == '__main__':
     main()
 # --------#
 # The End #
-# ------------------------------------------------------------------------------#
-# Программа была написана такими студентами: ('Даниил Чупак', 'Андрей Верыч') ^)
-# ------------------------------------------------------------------------------#

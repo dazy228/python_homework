@@ -3,11 +3,11 @@ import datetime
 
 
 class Person(object):
+    # Атрибуты для корректного масштабирования выводимой информации о обьекте
     len_name = 0
     len_surname = 0
     len_patronymic = 0
 
-    # Метод . просто метод%) ВОЛШЕБНЫЙ
     def __init__(self, name, surname, patronymic, sex, birthday, data_death):
         self.name = name
         self.surname = surname
@@ -37,6 +37,7 @@ class Person(object):
             return "__"
         return word
 
+    # Метод для расчета возраста
     def calculate_age(self):
         if self.data_death is None:
             today = datetime.date.today()
@@ -66,13 +67,12 @@ class PersonList(object):
     def __str__(self):
         return f'Список людей: {self.persons}'
 
-    # Метод для вывода списка людей в строку
-    def __repr__(self):
-        return f'Список людей: {self.persons}'
-
     # Метод для добавления человека в список
     def add_person(self, person):
         self.persons.append(person)
+        self.max_len_name()
+        self.max_len_surname()
+        self.max_len_patronymic()
 
     # Метод для сохранения всего нашего файла в формате xlsx с кастомным или уже существующим именем
     def save(self, file_name):
@@ -97,6 +97,7 @@ class PersonList(object):
             person = Person(row[0].value, row[1].value, row[2].value, row[3].value, row[4].value, row[5].value)
             self.persons.append(person)
         wb.close()
+
         self.max_len_name()
         self.max_len_surname()
         self.max_len_patronymic()
@@ -105,6 +106,7 @@ class PersonList(object):
         print('-' * 30)
         print('Загружена база данных')
 
+    # Методы перезаписи длинны атрибутов класса Person
     def max_len_name(self):
         max_len = 0
         for item in self.persons:
@@ -139,12 +141,6 @@ class PersonList(object):
                 persons.append(person)
         return persons
 
-    def find_person(self, surname):
-        for person in self.persons:
-            if person.surname == surname:
-                return person
-        return None
-
     # метод для удаления человека из списка по имени, фамилии и дате рождения
     def delete_person(self, name, surname, birthday):
         for person in self.persons:
@@ -153,6 +149,9 @@ class PersonList(object):
                 return True
 
 
+def get_valid_str(input_date: str):
+    return True if input_date.isalpha() else False
+
+
 def get_valid_date(input_date: str):
     return input_date.replace(" ", ".", 2).replace("/", ".", 2).replace("-", ".", 2)
-    # Функция для валидации даты под метод вычисления возраста человека

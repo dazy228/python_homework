@@ -15,8 +15,6 @@ def main():
               '\n6. Вывести базу', '\n7. Выйти')
         print('-' * 30)
         choice = input('Выберите пункт меню: ')
-        # Загружаем базу данных из файла, если такой есть. Если нет, то выводим
-        # сообщение об ошибке и возвращаемся в меню
         if choice == '1':
             file_name = input('Укажите имя файла: ')
             file_name = file_name + ('.xlsx' if file_name.find('xlsx') == -1 else "")
@@ -25,7 +23,6 @@ def main():
             else:
                 print('Такого файла нет в корне')
         elif choice == '2':
-            # Добавляем человека, просим ввести данные
             while True:
                 name = input('Введите имя: ').title()
                 if name == '':
@@ -35,7 +32,6 @@ def main():
                     continue
                 else:
                     break
-            # Сделали проверку фамилии ради того чтобы можно было корректно удалять людей
             while True:
                 surname = input('Введите фамилию: ').title()
                 if surname == '':
@@ -77,8 +73,6 @@ def main():
                     except ValueError:
                         print('Неверный формат даты')
             person_list.add_person(Person(name, surname, patronymic, sex, birthday, data_death))
-        # Делаем запрос на поиск человека по имени, фамилии или отчеству. Если человек или люди найдены, то
-        # выводим их на экран и возвращаемся в меню
         elif choice == '3':
             find = input('Введите слово по которому будет произведён поиск: ')
             person = person_list.find_persons(find)
@@ -118,5 +112,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-# --------#
-# The End #
